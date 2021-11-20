@@ -88,6 +88,19 @@
     	</encoder>  
 	</appender>
 	
+	<appender name="other" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>log/other.log</file>  
+    	<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>log/other.log.%d{yyyyMMdd}.%i</fileNamePattern>  
+        	<maxFileSize>20MB</maxFileSize>      
+        	<maxHistory>60</maxHistory>  
+        	<totalSizeCap>2GB</totalSizeCap> 
+       </rollingPolicy>
+    	<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">  
+      		<pattern>${pattern}</pattern>  
+    	</encoder>  
+	</appender>
+	
 	<appender name="cancel" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>log/cancel.log</file>  
     	<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
@@ -134,6 +147,11 @@
 	<logger name="com.fom.demo.schedules.cancel" level="info" additivity="false">
 		<appender-ref ref="consoleAppender" />
 		<appender-ref ref="cancel" />
+	</logger>
+	
+	<logger name="com.fom.demo.other" level="info" additivity="false">
+		<appender-ref ref="consoleAppender" />
+		<appender-ref ref="other" />
 	</logger>
 	
 </configuration>
