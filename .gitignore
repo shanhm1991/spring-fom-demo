@@ -1,0 +1,10 @@
+.settings
+/.idea/
+/log/
+/data/
+/cache/
+target
+.classpath
+.project
+spring-fom-demo.iml
+logfile.log*
