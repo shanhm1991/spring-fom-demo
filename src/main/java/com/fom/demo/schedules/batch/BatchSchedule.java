@@ -10,7 +10,7 @@ import org.springframework.fom.interceptor.ScheduleFactory;
  * 
  * <p>如果希望定时执行一批任务，并且这些任务可以有统一的抽象
  * 
- * <p>那么可以实现接口 ScheduleFactory，以集合的方式提交一批任务，并可以通过 threadCore 指定线程数来并行执行
+ * <p>那么可以实现接口<b>ScheduleFactory</b>，以集合的方式提交一批任务，另外通过<b>threadCore</b>可以指定线程数来并行执行
  * 
  * @author shanhm1991@163.com
  *

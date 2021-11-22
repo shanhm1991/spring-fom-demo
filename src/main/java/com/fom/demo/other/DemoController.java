@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 
- * <p>fomService：fom.html界面上的所有功能完全基于FomService提供的接口，如果想自己重新实现一个管理界面，
- * 或者在自己的界面中添加一些任务管理操作，则可以直接通过注入FomService来实现
+ * <p>fom.html界面上的所有功能完全基于<b>FomService</b>提供的接口，如果想自己重新实现一个管理界面，
+ * 或者在自己的界面中添加一些任务管理操作，则可以直接通过注入<b>FomService</b>来实现
  * 
  * @author shanhm1991@163.com
  *

@@ -5,7 +5,7 @@ import org.springframework.fom.annotation.FomSchedule;
 
 /**
  * 
- * <p>@FomSchedule 并不要求必须要有定时计划，如果没有定时计划，也可以当成一个线程池来使用，
+ * <p><b>@FomSchedule</b>并不要求必须要有定时计划，如果没有定时计划，也可以当成一个线程池来使用，
  * 并同样可在界面对其进行监控和控制
  * 
  * @author shanhm1991@163.com
