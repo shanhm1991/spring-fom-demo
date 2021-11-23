@@ -12,18 +12,18 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 /**
  * 
- * <p>简单的定时任务场景
+ * <p>对于简单的定时任务场景，没什么好讲的，所以这里顺便演示了一下，对于任务配置实时修改的支持。
  * 
- * <p>对定时计划的获取：如果<b>@FomSchedule</b>中指定了，则以<b>@FomSchedule</b>的定时计划为准；否则从<b>@Scheduled</b>中获取
+ * <p>对于<b>@Value</b>中的配置项<b>email.user</b>和<b>email.address</b>可以在界面实时修改合注入，
+ * 而且在任务的执行过程中，还可以手动新增配置项<b>dynamic.sleep.time</b>，同样也能在界面查看和实时修改。
  * 
- * <p>在<b>@FomSchedule</b>标识的类中，对于使用<b>@Value</b>标识的属性，会将其对应的配置同步到任务的配置集中，然后可以通过接口实时更新
- * 
- * <p>通过注入的<b>scheduleService</b>，可以在任务执行期间，实时向配置集中添加或修改配置，并支持持久化
+ * <p>另外，对于定时计划的获取有一个优先级，
+ * 即如果<b>@FomSchedule</b>中指定了，则以<b>@FomSchedule</b>中的定时计划为准，否则再尝试从<b>@Scheduled</b>中获取。
  * 
  * @author shanhm1991@163.com
  *
  */
-@FomSchedule(remark = "简单定时任务")
+@FomSchedule(remark = "定时单任务")
 public class SimpleSchedule {
 
 	private static final Logger LOG = LoggerFactory.getLogger(SimpleSchedule.class);

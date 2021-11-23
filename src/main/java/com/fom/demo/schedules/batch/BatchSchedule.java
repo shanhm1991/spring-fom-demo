@@ -8,14 +8,15 @@ import org.springframework.fom.interceptor.ScheduleFactory;
 
 /**
  * 
- * <p>如果希望定时执行一批任务，并且这些任务可以有统一的抽象
+ * <p>如果希望定时执行一批任务，并且这些任务可以进行统一抽象，那么可以实现接口<b>ScheduleFactory</b>，以集合的方式提交一批任务
+ * 但是对于任务的抽象需要继承给定的<b>Task</b>。
  * 
- * <p>那么可以实现接口<b>ScheduleFactory</b>，以集合的方式提交一批任务，另外通过<b>threadCore</b>可以指定线程数来并行执行
+ * <p>另外，通过<b>threadCore</b>可以指定线程数来并行执行。
  * 
  * @author shanhm1991@163.com
  *
  */
-@FomSchedule(fixedDelay = 180000, threadCore = 4, remark = "批量定时任务")
+@FomSchedule(fixedDelay = 180000, threadCore = 4, remark = "定时批任务")
 public class BatchSchedule implements ScheduleFactory<Long> {
 
 	@Override

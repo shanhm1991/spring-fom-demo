@@ -9,14 +9,15 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 /**
  * 
- * <p>如果存在多个异构任务，但是定时计划相同，可以使用多个<b>@Scheduled</b>进行任务标识
+ * <p>如果存在多个异构任务，但是定时计划相同，那么可以使用多个<b>@Scheduled</b>进行任务标识
  * 
- * <p>对定时计划的获取：如果<b>@FomSchedule</b>中指定了，则统一以<b>@FomSchedule</b>中为准；否则从下面的<b>@Scheduled</b>中获取，以获取到的第一个为准
+ * <p>对于定时计划的获取，同样如果<b>@FomSchedule</b>中指定了，则统一以<b>@FomSchedule</b>中为准；
+ * 否则再尝试从下面的<b>@Scheduled</b>中获取，以获取到的第一个为准
  * 
  * @author shanhm1991@163.com
  *
  */
-@FomSchedule(fixedRate = 120000, threadCore = 2, remark = "定时多任务测试")
+@FomSchedule(fixedRate = 120000, threadCore = 2, remark = "定时多任务")
 public class MultiSchedule {
 
 	private static final Logger LOG = LoggerFactory.getLogger(MultiSchedule.class);

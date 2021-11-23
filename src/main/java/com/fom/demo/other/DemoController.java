@@ -32,19 +32,15 @@ public class DemoController {
 	private FomService fomService;
 
 	@Autowired
+	private List<ScheduleContext<?>> schedules;
+
+	// 如果@FomSchedule标识的类已经继承了ScheduleContext，则在注入的时候与beanName一致
+	// 否则，注入时需要在目标beanName加一个$符，表示获取注入其对应ScheduleContext
+	@Autowired
 	private ScheduleContext<Long> taskExecutor;
 
-	// 如果@FomSchedule标识的类已经继承了ScheduleContext，则在注入的时候与beanName一致，比如上面的taskExecutor
-	// 否则，注入时需要在目标beanName加一个$符，表示获取注入其对应ScheduleContext
-	//@Autowired
-	//private ScheduleContext<Long> $simpleSchedule;
-
-	// 可以通过容器注入所有的 ScheduleContext
-	//@Autowired
-	//private List<ScheduleContext<?>> schedules;
-
 	/**
-	 * 获取所有的任务信息
+	 * 获取任务列表
 	 * @return
 	 */
 	@RequestMapping("/list")
@@ -53,6 +49,22 @@ public class DemoController {
 		return new Response<>(Response.SUCCESS, "", fomService.list());
 	}
 
+	/**
+	 * 获取任务计数
+	 * @return
+	 */
+	@RequestMapping("/count")
+	@ResponseBody
+	public Response<Integer> count(){
+		return new Response<>(Response.SUCCESS, "", schedules.size());
+	}
+
+	/**
+	 * 提交任务
+	 * @return
+	 * @throws InterruptedException
+	 * @throws ExecutionException
+	 */
 	@RequestMapping("/submit")
 	@ResponseBody
 	public Response<List<Result<Long>>> submit() throws InterruptedException, ExecutionException{

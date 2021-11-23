@@ -1,5 +1,6 @@
 package com.fom.demo.other;
 
+import org.springframework.fom.Result;
 import org.springframework.fom.ScheduleContext;
 import org.springframework.fom.annotation.FomSchedule;
 
@@ -14,4 +15,9 @@ import org.springframework.fom.annotation.FomSchedule;
 @FomSchedule(threadCore = 4, remark = "任务执行器")
 public class TaskExecutor extends ScheduleContext<Long> {
 
+	@Override
+	protected void record(Result<Long> result) {
+		super.record(result);
+		// ... 自定义任务结果统计，持久化或其它操作
+	}
 }

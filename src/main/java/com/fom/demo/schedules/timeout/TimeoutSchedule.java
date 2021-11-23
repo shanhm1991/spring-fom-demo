@@ -8,16 +8,15 @@ import org.springframework.fom.interceptor.ScheduleFactory;
 
 /**
  * 
- * <p>可以给任务指定超时时间，并在任务超时后进行中断
+ * <p>如果想给任务指定超时时间，并在超时后进行取消，那么可以通过<b>taskOverTime</b>给任务指定超时时间，这样当任务超时后会尝试对其进行中断取消。
  * 
- * <p>通过<b>taskOverTime</b>可以给任务指定超时时间，在任务超时会对其进行中断
- * 
- * <p>默认是对每个任务进行超时检测，通过<b>detectTimeoutOnEachTask = false</b>可以设置成对整体任务进行检测，即从第一个任务执行就计算超时时间
+ * <p>默认会对每个任务单独进行超时检测，如果希望对整体任务进行超时检测，可以通过<b>detectTimeoutOnEachTask = false</b>进行设置。
+ * 这样将从第一个任务开始执行时计算超时时间，等到超时后就取消还没结束的任务， 而不管这个任务实际耗时多久，就算它还没开始执行（耗时 0ms）也会被取消。
  * 
  * @author shanhm1991@163.com
  *
  */
-@FomSchedule(cron = "0 0/7 * * * ?", threadCore = 4, taskOverTime = 3500, remark = "中断超时任务")
+@FomSchedule(cron = "0 0/7 * * * ?", threadCore = 4, taskOverTime = 3500, remark = "任务超时中断")
 public class TimeoutSchedule implements ScheduleFactory<Long>{
 	
 	@Override
