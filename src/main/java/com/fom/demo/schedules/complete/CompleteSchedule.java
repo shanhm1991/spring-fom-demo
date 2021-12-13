@@ -8,8 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.fom.Result;
 import org.springframework.fom.annotation.FomSchedule;
-import org.springframework.fom.interceptor.ScheduleCompleter;
-import org.springframework.fom.interceptor.ScheduleFactory;
+import org.springframework.fom.proxy.CompleterHandler;
+import org.springframework.fom.proxy.ScheduleFactory;
 
 /**
  * 
@@ -24,7 +24,7 @@ import org.springframework.fom.interceptor.ScheduleFactory;
  *
  */
 @FomSchedule(cron = "0 0/5 * * * ?", threadCore = 4, remark = "自定义任务结束处理")
-public class CompleteSchedule implements ScheduleFactory<Long>, ScheduleCompleter<Long> {
+public class CompleteSchedule implements ScheduleFactory<Long>, CompleterHandler<Long> {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(CompleteSchedule.class);
 
@@ -38,9 +38,9 @@ public class CompleteSchedule implements ScheduleFactory<Long>, ScheduleComplete
 	}
 	
 	@Override
-	public void onScheduleComplete(long execTimes, long lastExecTime, List<Result<Long>> results) throws Exception {
-		String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(lastExecTime);
-		LOG.info( "第{}次在{}提交的任务全部完成，结果省略...", execTimes, date);
+	public void onComplete(long times, long lastTime, List<Result<Long>> results) throws Exception {
+		String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(lastTime);
+		LOG.info( "onComplete：第{}次在{}提交的任务全部完成，结果省略...", times, date);
 	}
 
 }

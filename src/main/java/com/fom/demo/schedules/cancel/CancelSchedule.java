@@ -5,8 +5,8 @@ import java.text.SimpleDateFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.fom.annotation.FomSchedule;
-import org.springframework.fom.interceptor.ScheduleTerminator;
-import org.springframework.fom.interceptor.TaskCancelHandler;
+import org.springframework.fom.proxy.TerminateHandler;
+import org.springframework.fom.proxy.TaskCancelHandler;
 import org.springframework.scheduling.annotation.Scheduled;
 
 /**
@@ -24,7 +24,7 @@ import org.springframework.scheduling.annotation.Scheduled;
  *
  */
 @FomSchedule(cron = "0 0/11 * * * ?", execOnLoad = true, taskOverTime = 300000, remark = "自定义任务取消策略")
-public class CancelSchedule implements TaskCancelHandler, ScheduleTerminator {
+public class CancelSchedule implements TaskCancelHandler, TerminateHandler {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(CancelSchedule.class);
 	
@@ -45,14 +45,14 @@ public class CancelSchedule implements TaskCancelHandler, ScheduleTerminator {
 	@Override
 	public void handleCancel(String taskId, long costTime) {
 		off = true;
-		LOG.info("任务被取消{}，已经耗时{}ms", taskId, costTime); 
+		LOG.info("handleCancel：任务被取消{}，已经耗时{}ms", taskId, costTime); 
 		
 	}
 
 	@Override
-	public void onScheduleTerminate(long execTimes, long lastExecTime) {
+	public void onTerminate(long execTimes, long lastExecTime) {
 		String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(lastExecTime);
-		LOG.info("任务关闭，共执行{}次任务，最后一次执行时间为{}", execTimes, date);
+		LOG.info("onTerminate：任务关闭，共执行{}次任务，最后一次执行时间为{}", execTimes, date);
 		
 	}
 }

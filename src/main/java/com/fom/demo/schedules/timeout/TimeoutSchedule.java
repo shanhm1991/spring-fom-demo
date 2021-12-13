@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.fom.annotation.FomSchedule;
-import org.springframework.fom.interceptor.ScheduleFactory;
+import org.springframework.fom.proxy.ScheduleFactory;
 
 /**
  * 

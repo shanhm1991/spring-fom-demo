@@ -1,23 +1,42 @@
 package com.fom.demo.other;
 
+import java.text.SimpleDateFormat;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.fom.Result;
-import org.springframework.fom.ScheduleContext;
 import org.springframework.fom.annotation.FomSchedule;
+import org.springframework.fom.proxy.CompleterHandler;
+import org.springframework.fom.proxy.ResultHandler;
+import org.springframework.fom.proxy.TaskCancelHandler;
 
 /**
  * 
- * <p><b>@FomSchedule</b>并不要求必须要有定时计划，如果没有定时计划，也可以当成一个线程池来使用，
- * 并同样可在界面对其进行监控和控制
+ * <p><b>@FomSchedule</b>不要求必须要有定时计划，如果没有定时计划，也可以当成一个线程池来使用，并且同样实现了一些接口功能，对外提供一个<b>submitBatch</b>接口
  * 
  * @author shanhm1991@163.com
  *
  */
-@FomSchedule(threadCore = 4, remark = "任务执行器")
-public class TaskExecutor extends ScheduleContext<Long> {
+@FomSchedule(threadCore = 4, taskOverTime = 5000, enableTaskConflict = true, detectTimeoutOnEachTask = true)
+public class TaskExecutor implements ResultHandler<Long>, TaskCancelHandler, CompleterHandler<Long> { 
+	
+	private static final Logger LOG = LoggerFactory.getLogger(TaskExecutor.class);
 
 	@Override
-	protected void record(Result<Long> result) {
-		super.record(result);
-		// ... 自定义任务结果统计，持久化或其它操作
+	public void handleResult(Result<Long> result) throws Exception {
+		LOG.info("handleResult：统计任务[{}]的结果：{}", result.getTaskId(), result.getContent());
 	}
+
+	@Override
+	public void handleCancel(String taskId, long costTime) throws Exception {
+		LOG.info("handleCancel：取消任务[{}]，耗时=：{}", taskId, costTime);
+	}
+
+	@Override
+	public void onComplete(long times, long lastTime, List<Result<Long>> results) throws Exception {
+		String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(lastTime);
+		LOG.info("onComplete： 第{}次在{}提交的任务全部执行结束，结果数：{}", times, date, results.size());
+	}
+
 }
