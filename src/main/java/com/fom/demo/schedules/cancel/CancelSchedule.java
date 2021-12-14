@@ -11,19 +11,18 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 /**
  * 
- * <p>如果想取消不可中断的任务，比如等待套接字返回，或者无限循环，那么此时线程已经无法响应中断，
+ * <p>如果要取消不可中断的任务，比如等待套接字返回，或者无限循环，那么此时线程已经无法响应中断，
  * 只能通过关闭套接字连接，或者增加循环结束标志等手段来实现。
  * 
- * <p>这时，可以通过实现接口<b>TaskCancelHandler</b>来自定义任务取消策略，对于取消策略有两个调用时机：
- * 检测到任务超时，或者被外部shutdown关闭
+ * <p>这时，可以通过实现接口<b>TaskCancelHandler</b>来自定义任务的取消策略，
+ * 对于取消策略<b>TaskCancelHandler</b>的调用有两个时机：检测到任务超时，或者被外部shutdown关闭时
  * 
- * <p>如果想自定义shutdown之后的处理，比如释放一些资源，那么可以实现接口<b>ScheduleTerminator</b>。
- * 另外，通过<b>execOnLoad</b>可以设置任务在启动时立即执行。
+ * <p>另外，如果想自定义shutdown之后的处理，比如释放一些资源，也可以实现接口<b>ScheduleTerminator</b>
  * 
  * @author shanhm1991@163.com
  *
  */
-@FomSchedule(cron = "0 0/11 * * * ?", execOnLoad = true, taskOverTime = 300000, remark = "自定义任务取消策略")
+@FomSchedule(cron = "0 0/11 * * * ?", execOnLoad = true, taskOverTime = 300000, remark = "自定义任务取消事件")
 public class CancelSchedule implements TaskCancelHandler, TerminateHandler {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(CancelSchedule.class);

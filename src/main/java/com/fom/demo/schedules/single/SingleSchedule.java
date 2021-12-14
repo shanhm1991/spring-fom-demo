@@ -1,4 +1,4 @@
-package com.fom.demo.schedules.simple;
+package com.fom.demo.schedules.single;
 
 import java.util.Random;
 
@@ -14,19 +14,19 @@ import org.springframework.scheduling.annotation.Scheduled;
  * 
  * <p>对于简单的定时任务场景，没什么好讲的，所以这里顺便演示了一下，对于任务配置实时修改的支持。
  * 
- * <p>对于<b>@Value</b>中的配置项<b>email.user</b>和<b>email.address</b>可以在界面实时修改合注入，
- * 而且在任务的执行过程中，还可以手动新增配置项<b>dynamic.sleep.time</b>，同样也能在界面查看和实时修改。
+ * <p>对于<b>@Value</b>中的配置项<b>email.user</b>和<b>email.address</b>可以在界面实时修改和注入，
+ * 而且在任务的执行过程中，也可以手动新增配置项<b>dynamic.sleep.time</b>，同样能在界面查看和实时修改。
  * 
  * <p>另外，对于定时计划的获取有一个优先级，
- * 即如果<b>@FomSchedule</b>中指定了，则以<b>@FomSchedule</b>中的定时计划为准，否则再尝试从<b>@Scheduled</b>中获取。
+ * 即首先以<b>@FomSchedule</b>中的定时计划为准，如果没有定义则再尝试从<b>@Scheduled</b>中获取。
  * 
  * @author shanhm1991@163.com
  *
  */
 @FomSchedule(remark = "定时单任务")
-public class SimpleSchedule {
+public class SingleSchedule {
 
-	private static final Logger LOG = LoggerFactory.getLogger(SimpleSchedule.class);
+	private static final Logger LOG = LoggerFactory.getLogger(SingleSchedule.class);
 
 	private final Random random = new Random();
 

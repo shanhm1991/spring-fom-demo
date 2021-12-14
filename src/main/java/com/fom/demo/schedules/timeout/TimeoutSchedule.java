@@ -16,7 +16,7 @@ import org.springframework.fom.proxy.ScheduleFactory;
  * @author shanhm1991@163.com
  *
  */
-@FomSchedule(cron = "0 0/7 * * * ?", threadCore = 4, taskOverTime = 3500, remark = "任务超时中断")
+@FomSchedule(cron = "0 0/7 * * * ?", threadCore = 4, taskOverTime = 3500, remark = "任务超时检测")
 public class TimeoutSchedule implements ScheduleFactory<Long>{
 	
 	@Override

@@ -2,7 +2,6 @@ package com.fom.demo.other;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.fom.Result;
@@ -59,12 +58,10 @@ public class OtherController {
 	/**
 	 * 提交任务
 	 * @return
-	 * @throws InterruptedException
-	 * @throws ExecutionException
 	 */
 	@RequestMapping("/submit")
 	@ResponseBody
-	public Response<List<Result<Long>>> submit(String tag) throws InterruptedException, ExecutionException{
+	public Response<List<Result<Long>>> submit(String tag) {
 		List<Task<Long>> tasks = new ArrayList<>();
 		for(int i = 0; i < 10; i++){ 
 			tasks.add(new OtherTask(tag + i));

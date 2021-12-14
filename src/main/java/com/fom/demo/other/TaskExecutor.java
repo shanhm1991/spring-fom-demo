@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.fom.Result;
 import org.springframework.fom.annotation.FomSchedule;
-import org.springframework.fom.proxy.CompleterHandler;
+import org.springframework.fom.proxy.CompleteHandler;
 import org.springframework.fom.proxy.ResultHandler;
 import org.springframework.fom.proxy.TaskCancelHandler;
 
@@ -19,7 +19,7 @@ import org.springframework.fom.proxy.TaskCancelHandler;
  *
  */
 @FomSchedule(threadCore = 4, taskOverTime = 5000, enableTaskConflict = true, detectTimeoutOnEachTask = true)
-public class TaskExecutor implements ResultHandler<Long>, TaskCancelHandler, CompleterHandler<Long> { 
+public class TaskExecutor implements ResultHandler<Long>, TaskCancelHandler, CompleteHandler<Long> { 
 	
 	private static final Logger LOG = LoggerFactory.getLogger(TaskExecutor.class);
 
@@ -38,5 +38,4 @@ public class TaskExecutor implements ResultHandler<Long>, TaskCancelHandler, Com
 		String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(lastTime);
 		LOG.info("onComplete： 第{}次在{}提交的任务全部执行结束，结果数：{}", times, date, results.size());
 	}
-
 }

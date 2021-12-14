@@ -7,11 +7,7 @@ import org.springframework.fom.annotation.FomSchedule;
 import org.springframework.fom.proxy.ScheduleFactory;
 
 /**
- * 
- * <p>如果希望定时执行一批任务，并且这些任务可以进行统一抽象，那么可以实现接口<b>ScheduleFactory</b>，以集合的方式提交一批任务
- * 但是对于任务的抽象需要继承给定的<b>Task</b>。
- * 
- * <p>另外，通过<b>threadCore</b>可以指定线程数来并行执行。
+ * <p>如果希望定时执行一批任务，并且这些任务有统一的抽象，那么可以实现接口<b>ScheduleFactory</b>，以集合的方式提交一批任务， 但是对于任务的抽象需要继承给定的<b>Task</b>。
  * 
  * @author shanhm1991@163.com
  *

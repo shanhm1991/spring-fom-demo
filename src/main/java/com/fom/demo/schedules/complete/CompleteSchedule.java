@@ -8,23 +8,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.fom.Result;
 import org.springframework.fom.annotation.FomSchedule;
-import org.springframework.fom.proxy.CompleterHandler;
+import org.springframework.fom.proxy.CompleteHandler;
 import org.springframework.fom.proxy.ScheduleFactory;
 
 /**
  * 
- * <p>如果希望在任务全部结束时，执行一些自定义操作，那么可以实现接口<b>ScheduleCompleter</b>
+ * <p>如果希望在任务全部结束时，执行一些自定义事件，那么可以实现接口<b>CompleterHandler</b>
  * 
- * <p>这在multi多任务或者batch批任务场景中比较有用，可以在最后一个任务结束时执行一些自定义的操作， 
- * 并且在执行中可以拿到所有任务的结果，执行的次数、以及本次执行开始时间等信息。
- * 
- * <p>下面以batch为例
+ * <p>这在<b>multi</b>多任务或者<b>batch</b>批任务场景中比较有用， 并且在事件执行中可以拿到一些信息，比如执行的次数、本次执行时间、以及所有任务的结果。
  * 
  * @author shanhm1991@163.com
  *
  */
 @FomSchedule(cron = "0 0/5 * * * ?", threadCore = 4, remark = "自定义任务结束处理")
-public class CompleteSchedule implements ScheduleFactory<Long>, CompleterHandler<Long> {
+public class CompleteSchedule implements ScheduleFactory<Long>, CompleteHandler<Long> {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(CompleteSchedule.class);
 
