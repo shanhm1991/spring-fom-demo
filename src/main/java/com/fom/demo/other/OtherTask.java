@@ -3,13 +3,14 @@ package com.fom.demo.other;
 import java.util.Random;
 
 import org.springframework.fom.Task;
+import org.springframework.fom.proxy.TaskCancelHandler;
 
 /**
  * 
  * @author shanhm1991@163.com
  *
  */
-public class OtherTask extends Task<Long> {
+public class OtherTask extends Task<Long> implements TaskCancelHandler {
 
 	public OtherTask(String tag) {
 		super(tag);
@@ -21,5 +22,10 @@ public class OtherTask extends Task<Long> {
 		logger.info("task executing ...");
 		Thread.sleep(sleep);
 		return sleep;
+	}
+
+	@Override
+	public void handleCancel(String taskId, long costTime) throws Exception {
+		logger.info("task handleCancel：取消任务[{}]，耗时={}ms", taskId, costTime);
 	}
 }

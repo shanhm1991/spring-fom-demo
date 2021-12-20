@@ -30,7 +30,7 @@ public class TaskExecutor implements ResultHandler<Long>, TaskCancelHandler, Com
 
 	@Override
 	public void handleCancel(String taskId, long costTime) throws Exception {
-		LOG.info("handleCancel：取消任务[{}]，耗时=：{}", taskId, costTime);
+		LOG.info("handleCancel：取消任务[{}]，耗时={}ms", taskId, costTime);
 	}
 
 	@Override
