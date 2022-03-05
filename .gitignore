@@ -1,10 +1,9 @@
-.settings
-/.idea/
-/log/
-/data/
-/cache/
-target
-.classpath
-.project
-spring-fom-demo.iml
-logfile.log*
+# 忽略所有文件
+*
+
+# 除了以下文件
+!src
+!pom.xml
+!README.md
+!bin
+!assembly.xml
