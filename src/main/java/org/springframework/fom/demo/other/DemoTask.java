@@ -10,9 +10,9 @@ import org.springframework.fom.proxy.TaskCancelHandler;
  * @author shanhm1991@163.com
  *
  */
-public class OtherTask extends Task<Long> implements TaskCancelHandler {
+public class DemoTask extends Task<Long> implements TaskCancelHandler {
 
-	public OtherTask(String tag) {
+	public DemoTask(String tag) {
 		super(tag);
 	} 
 

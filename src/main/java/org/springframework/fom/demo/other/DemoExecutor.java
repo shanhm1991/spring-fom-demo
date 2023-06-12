@@ -19,9 +19,9 @@ import org.springframework.fom.proxy.TaskCancelHandler;
  *
  */
 @Fom(threadCore = 4, taskOverTime = 5000, enableTaskConflict = true, detectTimeoutOnEachTask = true)
-public class TaskExecutor implements ResultHandler<Long>, TaskCancelHandler, CompleteHandler<Long> { 
+public class DemoExecutor implements ResultHandler<Long>, TaskCancelHandler, CompleteHandler<Long> {
 	
-	private static final Logger LOG = LoggerFactory.getLogger(TaskExecutor.class);
+	private static final Logger LOG = LoggerFactory.getLogger(DemoExecutor.class);
 
 	@Override
 	public void handleResult(Result<Long> result) throws Exception {

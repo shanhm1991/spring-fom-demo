@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping("/other")
-public class OtherController {
+public class DemoController {
 
 	@Autowired
 	private FomService fomService;
@@ -31,7 +31,7 @@ public class OtherController {
 	private List<ScheduleContext<?>> schedules;
 
 	@Autowired
-	private ScheduleContext<Long> $taskExecutor;
+	private ScheduleContext<Long> $demoExecutor;
 
 	/**
 	 * 获取任务列表
@@ -62,9 +62,9 @@ public class OtherController {
 	public void submit(String tag) {
 		List<Task<Long>> tasks = new ArrayList<>();
 		for(int i = 0; i < 10; i++){ 
-			tasks.add(new OtherTask(tag + i));
+			tasks.add(new DemoTask(tag + i));
 		}
 
-		$taskExecutor.submitBatch(tasks); 
+		$demoExecutor.submitBatch(tasks);
 	}
 }
