@@ -11,44 +11,39 @@ import org.springframework.fom.annotation.Schedule;
 import org.springframework.fom.support.service.ScheduleService;
 
 /**
- * 
- * <p>对于简单的定时任务场景，没什么好讲的，所以这里顺便演示了一下，对于任务配置实时修改的支持。
- * 
- * <p>对于<b>@Value</b>中的配置项<b>email.user</b>和<b>email.address</b>可以在界面实时修改和注入，
- * 而且在任务的执行过程中，也可以手动新增配置项<b>dynamic.sleep.time</b>，同样能在界面查看和实时修改。
- * 
- * <p>另外，对于定时计划的获取有一个优先级，
- * 即首先以<b>@FomSchedule</b>中的定时计划为准，如果没有定义则再尝试从<b>@Scheduled</b>中获取。
- * 
+ *
+ * <p>单个定时任务比较简单，这里演示一下对于<b>ScheduleService</b>的使用，实现在任务过程中对配置的获取和修改
+ *
+ * <p>示例中，配置项<b>config.email</b>可以在界面进行修改和注入，在任务的执行过程中，
+ * 也可以手动新增修改配置项<b>config.sleep.time</b>，然后在管理界面上同样可以查看和修改。
+ *
  * @author shanhm1991@163.com
  *
  */
-@Fom(remark = "定时单任务", cron = "0 */1 * * * ?")
+@Fom(cron = "0 */1 * * * ?", remark = "定时单任务")
 public class SingleSchedule {
 
 	private static final Logger LOG = LoggerFactory.getLogger(SingleSchedule.class);
 
 	private final Random random = new Random();
 
-	@Value("${email.user:shanhm1991}@${email.address:163.com}")
+	@Value("${config.email:shanhm1991@163.com}")
 	private String email;
 
 	@Autowired
 	private ScheduleService scheduleService;
 
 	@Schedule
-	public long exec() throws InterruptedException{ 
-		Long lastSleep = scheduleService.getCurrentConfig("dynamic.sleep.time");
-		if(lastSleep != null){
-			LOG.info("last sleep time: {}", lastSleep); 
+	public long exec() throws InterruptedException{
+		Integer sleepTime = scheduleService.getCurrentConfig("config.sleep.time");
+		if(sleepTime != null){
+			LOG.info("executing sleep..., email={}", email);
+			Thread.sleep(sleepTime);
 		}
 
-		long sleep = random.nextInt(5000);
-		LOG.info("task executing ..., email={}", email);
-		Thread.sleep(sleep);
-
-		scheduleService.putCurrentConfig("dynamic.sleep.time", sleep);
+		sleepTime = random.nextInt(5000);
+		scheduleService.putCurrentConfig("config.sleep.time", sleepTime);
 		scheduleService.serializeCurrent();
-		return sleep;
+		return sleepTime;
 	}
 }

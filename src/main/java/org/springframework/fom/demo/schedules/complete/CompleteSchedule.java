@@ -12,17 +12,16 @@ import org.springframework.fom.proxy.CompleteHandler;
 import org.springframework.fom.proxy.ScheduleFactory;
 
 /**
- * 
- * <p>如果希望在任务全部结束时，执行一些自定义事件，那么可以实现接口<b>CompleterHandler</b>
- * 
- * <p>这在<b>multi</b>多任务或者<b>batch</b>批任务场景中比较有用， 并且在事件执行中可以拿到一些信息，比如执行的次数、本次执行时间、以及所有任务的结果。
- * 
+ *
+ * <p>实现接口<b>CompleteHandler<b/>，可以在任务全部结束时，执行一些自定义事件，并且在执行过程可以拿到一些信息，
+ * 比如执行的次数、本次执行时间、以及所有任务的结果，这在multi多任务或者batch批任务场景中比较有用
+ *
  * @author shanhm1991@163.com
  *
  */
 @Fom(cron = "0 0/5 * * * ?", threadCore = 4, remark = "自定义任务结束处理")
 public class CompleteSchedule implements ScheduleFactory<Long>, CompleteHandler<Long> {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(CompleteSchedule.class);
 
 	@Override
@@ -33,7 +32,7 @@ public class CompleteSchedule implements ScheduleFactory<Long>, CompleteHandler<
 		}
 		return list;
 	}
-	
+
 	@Override
 	public void onComplete(long times, long lastTime, List<Result<Long>> results) throws Exception {
 		String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(lastTime);

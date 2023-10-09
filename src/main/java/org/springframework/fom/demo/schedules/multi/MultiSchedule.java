@@ -8,11 +8,11 @@ import org.springframework.fom.annotation.Fom;
 import org.springframework.fom.annotation.Schedule;
 
 /**
- * 
- * <p>如果存在多个异构任务，但定时计划相同，那么可以使用多个<b>@Scheduled</b>进行任务标识
- * 
- * <p>对于定时计划的获取，同样先以<b>@FomSchedule</b>中定义的为准；如果没有定义再从下面的<b>@FomSchedule</b>中获取，以获取到的第一个为准
- * 
+ *
+ * <p>使用<b>@Fom</b>标识一个类，表示启用一个调度计划，使用<b>@Schedule</b>标识其中的方法，则表示以这个方法作为任务来执行。可以标识多个方法，然后这些任务共享同一个调度计划
+ *
+ * <p>在有的场景中，可能存在不同的任务，但他们的定时计划相同
+ *
  * @author shanhm1991@163.com
  *
  */
@@ -28,7 +28,7 @@ public class MultiSchedule {
 		long sleep = random.nextInt(5000);
 		LOG.info("task executing ...");
 		Thread.sleep(sleep);
-		return sleep; 
+		return sleep;
 	}
 
 	@Schedule

@@ -12,16 +12,16 @@ import org.springframework.fom.proxy.ResultHandler;
 import org.springframework.fom.proxy.TaskCancelHandler;
 
 /**
- * 
- * <p><b>@FomSchedule</b>不要求必须要有定时计划，如果没有定时计划，也可以当成一个线程池来使用，并且同样实现了一些接口功能，对外提供一个<b>submitBatch</b>接口
- * 
+ *
+ * <p><b>@Fom</b>不要求必须要有定时计划，如果没有定时计划，也可以当成一个线程池来使用，同样支持一些接口功能，并对外提供提交任务的接口
+ *
  * @author shanhm1991@163.com
  *
  */
 @Fom(threadCore = 4, taskOverTime = 5000, enableTaskConflict = true, detectTimeoutOnEachTask = true)
-public class DemoExecutor implements ResultHandler<Long>, TaskCancelHandler, CompleteHandler<Long> {
-	
-	private static final Logger LOG = LoggerFactory.getLogger(DemoExecutor.class);
+public class FomExecutor implements ResultHandler<Long>, TaskCancelHandler, CompleteHandler<Long> {
+
+	private static final Logger LOG = LoggerFactory.getLogger(FomExecutor.class);
 
 	@Override
 	public void handleResult(Result<Long> result) throws Exception {
